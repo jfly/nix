@@ -35,12 +35,12 @@ cat << EOF > flake.nix
 EOF
 
 # No arguments check
-[[ "$(nix fmt)" = "Formatting(0):" ]]
-[[ "$(nix formatter run)" = "Formatting(0):" ]]
+[[ "$(nix fmt)" = "PRJ_ROOT=$TEST_HOME Formatting(0):" ]]
+[[ "$(nix formatter run)" = "PRJ_ROOT=$TEST_HOME Formatting(0):" ]]
 
 # Argument forwarding check
-nix fmt ./file ./folder | grep 'Formatting(2): ./file ./folder'
-nix formatter run ./file ./folder | grep 'Formatting(2): ./file ./folder'
+nix fmt ./file ./folder | grep "PRJ_ROOT=$TEST_HOME Formatting(2): ./file ./folder"
+nix formatter run ./file ./folder | grep "PRJ_ROOT=$TEST_HOME Formatting(2): ./file ./folder"
 
 # Build checks
 ## Defaults to a ./result.
